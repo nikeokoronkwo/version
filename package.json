@@ -1,11 +1,12 @@
 {
-  "name": "resolve-version-action",
+  "name": "@nikeokoronkwo/version",
   "version": "1.0.0",
   "description": "GitHub Action to resolve a version string from git context",
   "main": "index.js",
   "scripts": {
     "build": "ncc build index.js -o dist --license licenses.txt",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "format": "prettier . -w"
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
@@ -13,6 +14,7 @@
     "@actions/github": "^6.0.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.1"
+    "@vercel/ncc": "^0.38.1",
+    "prettier": "3.8.3"
   }
 }

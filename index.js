@@ -53,7 +53,7 @@ async function run() {
     core.info(
       latestTag
         ? `Non-release push. Using latest tag ${latestTag} + suffix`
-        : `Non-release push. No tags found, using 0.0.0 + suffix`
+        : `Non-release push. No tags found, using 0.0.0 + suffix`,
     );
 
     core.setOutput("version", version);
