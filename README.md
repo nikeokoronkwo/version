@@ -47,5 +47,3 @@ Resolves a version string from git context for use in CI pipelines — Docker im
 npm install
 npm run build   # bundles to dist/ with ncc — commit dist/ to the repo
 ```
-
-> **Important:** commit the `dist/` folder. GitHub Actions runs `dist/index.js` directly.
