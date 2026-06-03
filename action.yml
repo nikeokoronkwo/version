@@ -1,9 +1,12 @@
 name: "Resolve Version"
 description: >
   Resolves a version string for the current push.
-  Returns the tag version on releases, or <latest-tag>-<suffix> (or 0.0.0-<suffix>) otherwise.
 
 author: "nikeokoronkwo"
+
+branding:
+  icon: code
+  color: gray-dark
 
 inputs:
   suffix:
