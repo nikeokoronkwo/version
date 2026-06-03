@@ -1,0 +1,43 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Required — fetch all history so `git describe` can find tags
+          fetch-depth: 0
+
+      # --- Resolve version ---
+      - name: Resolve version
+        id: version
+        uses: nikeokoronkwo/version@v1
+        with:
+          suffix: commit # or "date"
+
+      - name: Show resolved version
+        run: |
+          echo "Version:    ${{ steps.version.outputs.version }}"
+          echo "Is release: ${{ steps.version.outputs.is_release }}"
+          echo "Tag:        ${{ steps.version.outputs.tag }}"
+
+      # --- Example: Docker image ---
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: gcr.io/my-project/server:${{ steps.version.outputs.version }}
+
+      # --- Example: only push to 'latest' on real releases ---
+      - name: Tag as latest
+        if: steps.version.outputs.is_release == 'true'
+        run: |
+          docker tag gcr.io/my-project/server:${{ steps.version.outputs.version }} \
+                     gcr.io/my-project/server:latest
+          docker push gcr.io/my-project/server:latest

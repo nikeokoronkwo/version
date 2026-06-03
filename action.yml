@@ -1,0 +1,28 @@
+name: "Resolve Version"
+description: >
+  Resolves a version string for the current push.
+  Returns the tag version on releases, or <latest-tag>-<suffix> (or 0.0.0-<suffix>) otherwise.
+
+author: "nikeokoronkwo"
+
+inputs:
+  suffix:
+    description: >
+      What to append after the base version on non-release pushes.
+      Options: "commit" (short git hash, default) | "date" (YYYYMMDD)
+    required: false
+    default: "commit"
+
+outputs:
+  version:
+    description: >
+      Resolved version string.
+      Examples: "1.2.3" | "1.2.3-a1b2c3d" | "0.0.0-20240601"
+  is_release:
+    description: "'true' if this is a tag release push, 'false' otherwise"
+  tag:
+    description: "The raw git tag (e.g. 'v1.2.3'), or empty string if no tags exist"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
